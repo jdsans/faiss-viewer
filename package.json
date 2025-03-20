@@ -1,0 +1,118 @@
+{
+  "name": "faiss-viewer",
+  "displayName": "FAISS Viewer",
+  "description": "View and explore FAISS vector indices",
+  "version": "0.0.1",
+  "publisher": "jdsans",
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jdsans/vscode-faiss-viewer.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Data Science",
+    "Machine Learning"
+  ],
+  "keywords": [
+    "faiss",
+    "vector",
+    "machine-learning",
+    "data-science"
+  ],
+  "icon": "resources/faiss.png",
+  "galleryBanner": {
+    "color": "#1877F2",
+    "theme": "light"
+  },
+  "activationEvents": [
+    "onView:faissView"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "faiss-viewer",
+          "title": "FAISS Viewer",
+          "icon": "resources/Faiss.svg"
+        }
+      ]
+    },
+    "views": {
+      "faiss-viewer": [
+        {
+          "id": "faissView",
+          "name": "FAISS Viewer",
+          "type": "tree",
+          "showCollapseAll": true
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "vscode-faiss-viewer.connect",
+        "title": "Connect to FAISS Index",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "vscode-faiss-viewer.refresh",
+        "title": "Refresh Index",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vscode-faiss-viewer.openVectorView",
+        "title": "Open Vector View",
+        "icon": "$(symbol-array)"
+      },
+      {
+        "command": "vscode-faiss-viewer.disconnect",
+        "title": "Disconnect Index",
+        "icon": "$(close)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "vscode-faiss-viewer.refresh",
+          "when": "view =~ /faissView/ && faissViewConnected == true",
+          "group": "navigation@1"
+        },
+        {
+          "command": "vscode-faiss-viewer.disconnect",
+          "when": "view =~ /faissView/ && faissViewConnected == true",
+          "group": "navigation@2"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.2.0",
+    "typescript": "^5.3.3",
+    "vsce": "^2.24.0",
+    "@vscode/test-electron": "^2.3.8"
+  },
+  "dependencies": {
+    "faiss-node": "^0.5.0"
+  }
+}
